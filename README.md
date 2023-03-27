@@ -31,7 +31,7 @@ Using:
 
 _RecursiveTask_
 
-Give example from RecursiveTask javadoc.
+Give example from [RecursiveTask](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/RecursiveTask.html) javadoc.
 Write FibonacciTask that implements RecursiveTask.
 Apply suggestion from javadoc to check minimum granularity size less or equal 10. And in that case use linear algorithm.
 Using unit test check that your code works correctly:
@@ -41,7 +41,11 @@ _RecursiveAction_
 
 Sum of double squares
 
-Give last example from RecursiveAction javadoc about calculation of sum of squares in double[] array.
+Give last example from [RecursiveAction](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/RecursiveAction.html) javadoc about calculation of sum of squares in double[] array.
 Use double array of half-billion size 500_000_000 filled by random doubles.
 Compare speed with direct linear calculation (you may use Stream API as well):
 double sum = 0; for (double v : ARRAY) { sum += v * v; }
+
+* Task 7 - Blurring for Clarity (forkjoin module)
+
+Execute ForkBlur example from [Java SE Fork/Join tutorial](https://docs.oracle.com/javase/tutorial/essential/concurrency/forkjoin.html)
