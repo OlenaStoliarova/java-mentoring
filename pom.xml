@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>pl.mentoring</groupId>
+    <artifactId>java-mentoring</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <modules>
+        <module>m6-advanced-multithreading/t1-factorial-fjp</module>
+        <module>m6-advanced-multithreading/t2-quick-sort-fjp</module>
+        <module>m6-advanced-multithreading/t3-file-scanner-fjp</module>
+        <module>m6-advanced-multithreading/t4-completable-future</module>
+        <module>m6-advanced-multithreading/t5-producer-consumer</module>
+        <module>m6-advanced-multithreading/t6-recursivetask-recursiveaction</module>
+        <module>m6-advanced-multithreading/t7-forkjoin</module>
+    </modules>
+
+</project>

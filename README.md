@@ -21,6 +21,17 @@ Folder count.
 Size (sum of all files size) (similar like Windows context menu Properties). Since the folder may contain huge number of files the scanning process should be executed in a separate thread displaying an informational message with some simple animation like progress bar in CLI (up to you, but I'd like to see that task is in progress).
 Once task is done, the statistics should be displayed in the output immediately. Additionally, there should be ability to interrupt the process pressing some reserved key (for instance c). Of course, use Fork-Join Framework for implementation parallel scanning.
 
+* __Task 4__ - Completable Future Helps to Build Open Salary Society
+
+Assume, we have REST endpoint that returns a list of hired Employees. 
+- REST endpoint is wrapped by Java service class that consuming this endpoint.
+- Fetch a list of Employee objects asynchronously by calling the hiredEmployees().
+- Join another CompletionStage List that takes care of filling the salary of each hired employee, by calling the getSalary(hiredEmployeeId) method which returns a CompletionStage that asynchronously fetches the salary (again could be consuming a REST endpoint).
+- When all Employee objects are filled with their salaries, we end up with a List of CompletionStage, so we call "special operation on CF" to get a final stage that completes upon completion of all these stages.
+- Print hired Employees with their salaries via "special operation on CF" on final stage.
+
+Provide correct solution with CF usage and use appropriate CF operators instead "special operation on CF". Why does the CF usage improve performance here in comparison with synchronous approach? Discuss it with mentor. How thread waiting is implemented in synchronous world?
+
 * __Task 5__ (prodcons module): Solve producer–consumer problem
 
 Using:
