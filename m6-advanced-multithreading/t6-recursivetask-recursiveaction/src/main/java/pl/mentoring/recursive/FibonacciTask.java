@@ -15,7 +15,8 @@ public class FibonacciTask extends RecursiveTask<Long> {
         if (n <= 10) {
             if (n == 0) return 0L;
 
-            long fib1 = 1L, fib2 = 1L;
+            long fib1 = 1L;
+            long fib2 = 1L;
 
             for (int j = 0; j < n - 2; j++) {
                 long fibSum = fib1 + fib2;

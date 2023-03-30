@@ -6,15 +6,13 @@ import java.util.concurrent.RecursiveTask;
 
 public class ParallelFactorial {
 
-    private BigInteger number;
-
-    public ParallelFactorial(BigInteger number) {
-        this.number = number;
+    private ParallelFactorial() {
+        throw new IllegalStateException("Utility class");
     }
 
-    public BigInteger calculateFactorial() {
-        int procsNumber = Runtime.getRuntime().availableProcessors();
-        ForkJoinPool pool = new ForkJoinPool(procsNumber);
+    public static BigInteger calculateFactorial(BigInteger number) {
+        int processorsNumber = Runtime.getRuntime().availableProcessors();
+        ForkJoinPool pool = new ForkJoinPool(processorsNumber);
 
         BigInteger result = pool.invoke(new RangeMultiplier(BigInteger.ONE, number));
 
@@ -23,15 +21,15 @@ public class ParallelFactorial {
         return result;
     }
 
-    private class RangeMultiplier extends RecursiveTask<BigInteger> {
+    private static class RangeMultiplier extends RecursiveTask<BigInteger> {
 
-        private final BigInteger THRESHOLD = BigInteger.valueOf(1000);
-        private BigInteger start;
-        private BigInteger end;
+        private final BigInteger threshold = BigInteger.valueOf(1000);
+        private final BigInteger start;
+        private final BigInteger end;
 
         public RangeMultiplier(BigInteger start, BigInteger end) {
-            if( start.compareTo(end) > 0){
-                new IllegalArgumentException("start should be less than end");
+            if (start.compareTo(end) > 0) {
+                throw new IllegalArgumentException("start should be less than end");
             }
             this.start = start;
             this.end = end;
@@ -40,9 +38,9 @@ public class ParallelFactorial {
         @Override
         protected BigInteger compute() {
 
-            if (end.subtract(start).compareTo(THRESHOLD) <= 0) {
+            if (end.subtract(start).compareTo(threshold) <= 0) {
                 BigInteger result = BigInteger.ONE;
-                for (BigInteger i = start; i.compareTo(end)<=0; i = i.add(BigInteger.ONE)) {
+                for (BigInteger i = start; i.compareTo(end) <= 0; i = i.add(BigInteger.ONE)) {
                     result = result.multiply(i);
                 }
                 return result;

@@ -6,7 +6,8 @@ public class SumOfSquaresAction extends RecursiveAction {
 
     private final double[] array;
 
-    private final int left, right;
+    private final int left;
+    private final int right;
 
     private double result;
 

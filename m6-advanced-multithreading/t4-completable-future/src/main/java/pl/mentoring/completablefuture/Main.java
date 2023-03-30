@@ -1,5 +1,8 @@
 package pl.mentoring.completablefuture;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -7,6 +10,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 public class Main {
+
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         CompletionStageService completionStageService = new CompletionStageService(new EmployeeService());
@@ -19,10 +24,10 @@ public class Main {
 
             CompletionStage<Void> allEmployeesAreWithSalaries = CompletableFuture.allOf(employeesWithSalary.toArray(new CompletableFuture[employeesWithSalary.size()]))
                 .thenAccept(v -> {
-                    System.out.println(java.time.LocalTime.now() + " all salaries are ready");
+                    logger.info("{} all salaries are ready", java.time.LocalTime.now());
                     employeesWithSalary.stream()
                         .map(CompletableFuture::join)
-                        .forEach(System.out::println);
+                        .forEach(employee -> logger.info("{}", employee));
                 });
 
             try {

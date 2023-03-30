@@ -1,15 +1,17 @@
-package pl.mentoring.factorial;
+package pl.mentoring.qsort;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class PerformanceEvaluationRunner<K, R> {
 
-    public double runAndReturnAverageTime(int runsNumber, K input, Function<K, R> methodToTest) {
+    public double runAndReturnAverageTime(int runsNumber, Supplier<K> classToTest, Function<K, R> methodToTest) {
 
         double runTime = 0;
         for (int i = 0; i < runsNumber; i++) {
+            K testedInstance = classToTest.get();
             long start = System.currentTimeMillis();
-            methodToTest.apply(input);
+            methodToTest.apply(testedInstance);
             runTime += System.currentTimeMillis() - start;
         }
 

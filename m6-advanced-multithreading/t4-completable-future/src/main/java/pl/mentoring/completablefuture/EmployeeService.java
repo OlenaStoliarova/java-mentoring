@@ -1,12 +1,16 @@
 package pl.mentoring.completablefuture;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,6 +19,8 @@ import java.util.Map;
 import java.util.Random;
 
 public class EmployeeService {
+
+    private static final Logger logger = LoggerFactory.getLogger(EmployeeService.class);
 
     private final Map<String, BigDecimal> negotiatedSalaries;
 
@@ -35,13 +41,9 @@ public class EmployeeService {
     }
 
     public List<Employee> fetchHiredEmployees() {
-        System.out.println(java.time.LocalTime.now() + " fetchHiredEmployees in " + Thread.currentThread().getId());
+        logger.info("{} fetchHiredEmployees in {}", java.time.LocalTime.now(), Thread.currentThread().getId());
         ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            Thread.sleep(500); // let's imagine getting un answer from REST endpoint takes some time
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        putCurrentThreadToSleep(500);  // let's imagine getting un answer from REST endpoint takes some time
 
         URL resource = getClass().getClassLoader().getResource("hired_employees.json");
         if (resource != null) {
@@ -57,14 +59,26 @@ public class EmployeeService {
     }
 
     public BigDecimal getSalary(String employeeId) {
-        System.out.println(java.time.LocalTime.now() + " getSalary for " + employeeId + " in " + Thread.currentThread().getId());
-        Random rand = new Random();
+        logger.info("{} getSalary for {} in {}", java.time.LocalTime.now(), employeeId, Thread.currentThread().getId());
+
         try {
-            Thread.sleep(rand.nextInt(1000)); // let's imagine getting un answer from REST endpoint takes some time
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Random rand = SecureRandom.getInstanceStrong();
+            putCurrentThreadToSleep(rand.nextInt(1000)); // let's imagine getting un answer from REST endpoint takes some time
+        } catch (NoSuchAlgorithmException e) {
+            logger.warn("SecureRandom.getInstanceStrong exception", e);
         }
-        System.out.println(java.time.LocalTime.now() + " salary for " + employeeId + " is ready");
+
+        logger.info("{} salary for {} is ready", java.time.LocalTime.now(), employeeId);
         return negotiatedSalaries.get(employeeId);
+    }
+
+    private void putCurrentThreadToSleep(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            logger.warn("Interrupted!", e);
+            // Restore interrupted state...
+            Thread.currentThread().interrupt();
+        }
     }
 }

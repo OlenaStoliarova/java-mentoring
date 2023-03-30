@@ -20,8 +20,8 @@ public class DirStatisticsProvider implements Callable<DirStatistics> {
 
     @Override
     public DirStatistics call() {
-        int procsCount = Runtime.getRuntime().availableProcessors();
-        ForkJoinPool pool = new ForkJoinPool(procsCount);
+        int processorsCount = Runtime.getRuntime().availableProcessors();
+        ForkJoinPool pool = new ForkJoinPool(processorsCount);
 
         try {
             return pool.invoke(new DirStatisticsWorker(dir));

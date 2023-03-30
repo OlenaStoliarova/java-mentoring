@@ -1,5 +1,8 @@
 package pl.mentoring.forkjoin;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -7,15 +10,17 @@ import java.util.concurrent.ForkJoinPool;
 
 public class Main {
 
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) throws Exception {
         String moduleDir = "m6-advanced-multithreading\\t7-forkjoin\\";
 
         String srcName = "red-tulips.jpg";
         File srcFile = new File(moduleDir + srcName);
-        System.out.println(srcFile.getAbsolutePath());
+        logger.info(srcFile.getAbsolutePath());
         BufferedImage image = ImageIO.read(srcFile);
 
-        System.out.println("Source image: " + srcName);
+        logger.info("Source image: {}", srcName);
 
         BufferedImage blurredImage = blur(image);
 
@@ -23,7 +28,7 @@ public class Main {
         File dstFile = new File(moduleDir + dstName);
         ImageIO.write(blurredImage, "jpg", dstFile);
 
-        System.out.println("Output image: " + dstName);
+        logger.info("Output image: {}", dstName);
     }
 
     public static BufferedImage blur(BufferedImage srcImage) {
@@ -33,12 +38,11 @@ public class Main {
         int[] src = srcImage.getRGB(0, 0, w, h, null, 0, w);
         int[] dst = new int[src.length];
 
-        System.out.println("Array size is " + src.length);
-        System.out.println("Threshold is " + ForkBlur.sThreshold);
+        logger.info("Array size is {}", src.length);
+        logger.info("Threshold is {}", ForkBlur.sThreshold);
 
         int processors = Runtime.getRuntime().availableProcessors();
-        System.out.println(processors + " processor"
-            + (processors != 1 ? "s are " : " is ") + "available");
+        logger.info("{} processors are available", processors);
 
         ForkBlur fb = new ForkBlur(src, 0, src.length, dst);
 
@@ -48,7 +52,7 @@ public class Main {
         pool.invoke(fb);
         long endTime = System.currentTimeMillis();
 
-        System.out.println("Image blur took " + (endTime - startTime) + " milliseconds.");
+        logger.info("Image blur took {} milliseconds.", endTime - startTime);
 
         BufferedImage dstImage = new BufferedImage(w, h, BufferedImage.TYPE_3BYTE_BGR);
         dstImage.setRGB(0, 0, w, h, dst, 0, w);

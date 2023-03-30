@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class SequentialQuickSort {
 
-    private int[] array;
+    private final int[] array;
 
     public SequentialQuickSort(int[] array) {
         this.array = array;

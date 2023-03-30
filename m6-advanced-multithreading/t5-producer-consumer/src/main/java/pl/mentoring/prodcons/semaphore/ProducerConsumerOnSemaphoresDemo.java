@@ -1,5 +1,8 @@
 package pl.mentoring.prodcons.semaphore;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Semaphore;
@@ -7,15 +10,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ProducerConsumerOnSemaphoresDemo {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProducerConsumerOnSemaphoresDemo.class);
     private static final int QSIZE = 20;
 
-    private static Queue<String> queue = new ConcurrentLinkedQueue<>();
+    private static final Queue<String> queue = new ConcurrentLinkedQueue<>();
 
-    private static Semaphore modificationKey = new Semaphore(1);
-    private static Semaphore fillCount = new Semaphore(0);
-    private static Semaphore emptyCount = new Semaphore(QSIZE);
+    private static final Semaphore modificationKey = new Semaphore(1);
+    private static final Semaphore fillCount = new Semaphore(0);
+    private static final Semaphore emptyCount = new Semaphore(QSIZE);
 
-    private static AtomicBoolean operationalHours = new AtomicBoolean(true);
+    private static final AtomicBoolean operationalHours = new AtomicBoolean(true);
 
     public static void main(String[] args) {
         new CallCenterOperator("1").start();
@@ -25,7 +29,7 @@ public class ProducerConsumerOnSemaphoresDemo {
         try {
             Thread.sleep(10000); //wait end of business day
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
         }
 
         operationalHours.set(false);
@@ -36,6 +40,7 @@ public class ProducerConsumerOnSemaphoresDemo {
             super(s);
         }
 
+        @Override
         public void run() {
             while (operationalHours.get() || (!operationalHours.get() && !queue.isEmpty())) {
 
@@ -50,19 +55,22 @@ public class ProducerConsumerOnSemaphoresDemo {
                     modificationKey.release();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    Thread.currentThread().interrupt();
                 }
                 try {
-                    System.out.format("Operator %s took %s\n", getName(), call);
+                    logger.info("Operator {} took {}", getName(), call);
                     Thread.sleep(500); // time to answer a call
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Thread.currentThread().interrupt();
                 }
             }
-            System.out.format("End of the business day for operator %s. WooHoo!\n", getName());
+            logger.info("End of the business day for operator {}. WooHoo!", getName());
         }
     }
 
     private static class IncomingCallsProducer extends Thread {
+        @Override
         public void run() {
             int i = 1;
             while (operationalHours.get()) {
@@ -75,14 +83,15 @@ public class ProducerConsumerOnSemaphoresDemo {
                     fillCount.release();
                     modificationKey.release();
 
-                    System.out.format("Incoming call #%d added to queue\n", i);
+                    logger.info("Incoming call #{} added to queue", i);
                     Thread.sleep(100); // time to next Incoming call
                     i++;
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Thread.currentThread().interrupt();
                 }
             }
-            System.out.println("End of the operational hours. Please call back tomorrow!");
+            logger.info("End of the operational hours. Please call back tomorrow!");
         }
     }
 }

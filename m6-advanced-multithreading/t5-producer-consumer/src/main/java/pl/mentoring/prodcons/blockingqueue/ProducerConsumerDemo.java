@@ -23,7 +23,7 @@ public class ProducerConsumerDemo {
         try {
             Thread.sleep(10000); //wait end of business day
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
         }
 
         operationalHours.set(false);

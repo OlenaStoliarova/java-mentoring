@@ -1,5 +1,7 @@
 package pl.mentoring.filescanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -15,6 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Command(name = "dirstat")
 public class DirScanner implements Runnable {
 
+    private static final Logger logger = LoggerFactory.getLogger(DirScanner.class);
     @Parameters(index = "0", description = "the directory to scan")
     private File dir;
 
@@ -24,45 +27,11 @@ public class DirScanner implements Runnable {
     @Override
     public void run() {
         if (dir.isDirectory()) {
-            System.out.println("Detailed statistics for " + dir.getPath());
-
-            AtomicBoolean canceledByUser = new AtomicBoolean(false);
-            Thread keyboardListenerThread = new Thread(new KeyboardListener(canceledByUser));
-            keyboardListenerThread.setDaemon(true);
-            keyboardListenerThread.start();
-
-            ExecutorService executorService = Executors.newSingleThreadExecutor();
-            Future<DirStatistics> statistics = executorService.submit(new DirStatisticsProvider(dir));
-
-            ProgressBar pb = new ProgressBar();
-            pb.start();
-
-            while (!statistics.isDone()) {
-                if (canceledByUser.get()) {
-                    statistics.cancel(true);
-                    pb.showProgress = false;
-                } else {
-                    try {
-                        Thread.sleep(300);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-
-            try {
-                if (statistics.isCancelled()) {
-                    System.out.println("\ndir scan is cancelled by user");
-                } else {
-                    System.out.print("\r" + statistics.get() + "\n");
-                }
-            } catch (InterruptedException | ExecutionException e) {
-                throw new RuntimeException(e);
-            }
+            printDetailedDirStatistics();
         } else if (dir.isFile()) {
-            System.out.println("Please provide directory, not a file");
+            logger.error("Please provide directory, not a file");
         } else {
-            System.out.println("Please provide valid directory path");
+            logger.error("Please provide valid directory path");
         }
     }
 
@@ -71,18 +40,60 @@ public class DirScanner implements Runnable {
         System.exit(exitCode);
     }
 
+    private void printDetailedDirStatistics() {
+        logger.info("Detailed statistics for {}\n", dir.getPath());
+
+        AtomicBoolean canceledByUser = new AtomicBoolean(false);
+        Thread keyboardListenerThread = new Thread(new KeyboardListener(canceledByUser));
+        keyboardListenerThread.setDaemon(true);
+        keyboardListenerThread.start();
+
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Future<DirStatistics> statistics = executorService.submit(new DirStatisticsProvider(dir));
+
+        ProgressBar pb = new ProgressBar();
+        pb.start();
+
+        while (!statistics.isDone()) {
+            if (canceledByUser.get()) {
+                statistics.cancel(true);
+                pb.showProgress = false;
+            } else {
+                putCurrentThreadToSleep(300);
+            }
+        }
+
+        try {
+            if (statistics.isCancelled()) {
+                logger.warn("\ndir scan is cancelled by user");
+            } else {
+                logger.info("\r{}\n", statistics.get());
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
     private class ProgressBar extends Thread {
         boolean showProgress = true;
 
+        @Override
         public void run() {
-            System.out.print("work in progress");
+            logger.info("work in progress");
             while (showProgress) {
-                System.out.print(".");
-                try {
-                    Thread.sleep(2000);
-                } catch (Exception ignored) {
-                }
+                logger.info(".");
+                putCurrentThreadToSleep(2000);
             }
+        }
+    }
+
+    private void putCurrentThreadToSleep(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            logger.warn("Interrupted!", e);
+            // Restore interrupted state...
+            Thread.currentThread().interrupt();
         }
     }
 }

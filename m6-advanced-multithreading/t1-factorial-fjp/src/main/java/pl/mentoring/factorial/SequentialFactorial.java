@@ -4,19 +4,16 @@ import java.math.BigInteger;
 
 public class SequentialFactorial {
 
-    private BigInteger number;
-
-    public SequentialFactorial(BigInteger number) {
-        this.number = number;
+    private SequentialFactorial() {
+        throw new IllegalStateException("Utility class");
     }
 
-    public BigInteger calculateFactorial() {
+    public static BigInteger calculateFactorial(BigInteger number) {
         BigInteger factorial = BigInteger.ONE;
-        while(number.compareTo(BigInteger.ZERO) > 0) {
+        while (number.compareTo(BigInteger.ZERO) > 0) {
             factorial = factorial.multiply(number);
             number = number.subtract(BigInteger.ONE);
         }
         return factorial;
     }
-
 }

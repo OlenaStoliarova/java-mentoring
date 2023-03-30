@@ -6,15 +6,15 @@ import java.util.concurrent.RecursiveAction;
 
 public class ParallelQuickSort {
 
-    private int[] array;
+    private final int[] array;
 
     public ParallelQuickSort(int[] array) {
         this.array = array;
     }
 
     public int[] sort() {
-        int procsCount = Runtime.getRuntime().availableProcessors();
-        ForkJoinPool pool = new ForkJoinPool(procsCount);
+        int processorsCount = Runtime.getRuntime().availableProcessors();
+        ForkJoinPool pool = new ForkJoinPool(processorsCount);
 
         ParallelQuickSortWorker task = new ParallelQuickSortWorker(0, array.length - 1);
         pool.invoke(task);
@@ -26,7 +26,8 @@ public class ParallelQuickSort {
 
     private class ParallelQuickSortWorker extends RecursiveAction {
 
-        int left, right;
+        int left;
+        int right;
 
         public ParallelQuickSortWorker(int left, int right) {
             this.left = left;
