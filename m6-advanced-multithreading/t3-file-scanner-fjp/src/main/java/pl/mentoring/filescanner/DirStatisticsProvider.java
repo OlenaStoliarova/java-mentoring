@@ -30,7 +30,7 @@ public class DirStatisticsProvider implements Callable<DirStatistics> {
         }
     }
 
-    private class DirStatisticsWorker extends RecursiveTask<DirStatistics> {
+    private static class DirStatisticsWorker extends RecursiveTask<DirStatistics> {
 
         private final File curDir;
 
