@@ -1,0 +1,36 @@
+{
+	"id": 2,
+    "name": "Lily Rose",
+    "accounts": {
+        "PL308888123": {
+            "accountNumber": "PL308888123",
+            "moneyAmount": {
+                "amount": 4360,
+                "currency": {
+                    "code": "PLN",
+                    "isNational": true
+                }
+            }
+        },
+        "EUR318888456": {
+            "accountNumber": "EUR318888456",
+            "moneyAmount": {
+                "amount": 3000,
+                "currency": {
+                    "code": "EUR",
+                    "isNational": false
+                }
+            }
+        },
+        "JPY458888987": {
+            "accountNumber": "JPY458888987",
+            "moneyAmount": {
+                "amount": 0,
+                "currency": {
+                    "code": "JPY",
+                    "isNational": false
+                }
+            }
+        }
+    }
+}

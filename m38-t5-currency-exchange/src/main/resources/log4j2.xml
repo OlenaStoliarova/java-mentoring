@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %m%n</Property>
+        <Property name="logPath">logs</Property>
+        <Property name="rollingFileName">exchanges</Property>
+        <Property name="rollingDebugFileName">debug</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+        <RollingFile
+                name="rollingFile" fileName="${logPath}/${rollingFileName}.log"
+                filePattern="${logPath}/${rollingFileName}.%i.log"
+                ignoreExceptions="true">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="5" />
+        </RollingFile>
+        <RollingFile
+                name="rollingDebugFile" fileName="${logPath}/${rollingDebugFileName}.log"
+                filePattern="${logPath}/${rollingDebugFileName}.%i.log"
+                ignoreExceptions="false">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="5" />
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="pl.mentoring.currencyexchange" level="debug" additivity="false">
+            <AppenderRef ref="rollingDebugFile"/>
+        </Logger>
+        <Logger name="pl.mentoring.currencyexchange" level="info" additivity="false">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="rollingFile"/>
+        </Logger>
+        <Root level="info">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="rollingFile"/>
+            <AppenderRef ref="rollingDebugFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

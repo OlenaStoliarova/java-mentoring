@@ -1,0 +1,98 @@
+[
+	{
+	    "clientGives": {
+	        "amount": 1,
+	        "currency": {
+	            "code": "USD",
+	            "isNational": false
+	        }
+	    },
+	    "clientGets": {
+	        "amount": 4.3,
+	        "currency": {
+	            "code": "PLN",
+	            "isNational": true
+	        }
+	    }
+	},
+	{
+	    "clientGives": {
+	        "amount": 4.43,
+	        "currency": {
+	            "code": "PLN",
+	            "isNational": true
+	        }
+	    },
+	    "clientGets": {
+	        "amount": 1,
+	        "currency": {
+	            "code": "USD",
+	            "isNational": false
+	        }
+	    }
+	},
+	{
+	    "clientGives": {
+	        "amount": 1,
+	        "currency": {
+	            "code": "EUR",
+	            "isNational": false
+	        }
+	    },
+	    "clientGets": {
+	        "amount": 4.49,
+	        "currency": {
+	            "code": "PLN",
+	            "isNational": true
+	        }
+	    }
+	},
+	{
+	    "clientGives": {
+	        "amount": 4.85,
+	        "currency": {
+	            "code": "PLN",
+	            "isNational": true
+	        }
+	    },
+	    "clientGets": {
+	        "amount": 1,
+	        "currency": {
+	            "code": "EUR",
+	            "isNational": false
+	        }
+	    }
+	},
+	{
+	    "clientGives": {
+	        "amount": 100,
+	        "currency": {
+	            "code": "JPY",
+	            "isNational": false
+	        }
+	    },
+	    "clientGets": {
+	        "amount": 3.28,
+	        "currency": {
+	            "code": "PLN",
+	            "isNational": true
+	        }
+	    }
+	},
+	{
+	    "clientGives": {
+	        "amount": 3.49,
+	        "currency": {
+	            "code": "PLN",
+	            "isNational": true
+	        }
+	    },
+	    "clientGets": {
+	        "amount": 100,
+	        "currency": {
+	            "code": "JPY",
+	            "isNational": false
+	        }
+	    }
+	}
+]

@@ -1,0 +1,46 @@
+{
+	"id": 0,
+    "name": "The BANK",
+    "accounts": {
+        "PL30": {
+            "accountNumber": "PL30",
+            "moneyAmount": {
+                "amount": 1000000,
+                "currency": {
+                    "code": "PLN",
+                    "isNational": true
+                }
+            }
+        },
+        "EUR31": {
+            "accountNumber": "EUR31",
+            "moneyAmount": {
+                "amount": 48000,
+                "currency": {
+                    "code": "EUR",
+                    "isNational": false
+                }
+            }
+        },
+        "USD32": {
+            "accountNumber": "USD32",
+            "moneyAmount": {
+                "amount": 17000,
+                "currency": {
+                    "code": "USD",
+                    "isNational": false
+                }
+            }
+        },
+        "JPY45": {
+            "accountNumber": "JPY45",
+            "moneyAmount": {
+                "amount": 120000,
+                "currency": {
+                    "code": "JPY",
+                    "isNational": false
+                }
+            }
+        }
+    }
+}
