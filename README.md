@@ -69,6 +69,15 @@ Execute ForkBlur example from [Java SE Fork/Join tutorial](https://docs.oracle.c
 
 Create HashMap<Integer, Integer>. The first thread adds elements into the map, the other go along the given map and sum the values. Threads should work before catching ConcurrentModificationException. Try to fix the problem with ConcurrentHashMap and Collections.synchronizedMap(). What has happened after simple Map implementation exchanging? How it can be fixed in code? Try to write your custom ThreadSafeMap with synchronization and without. Run your samples with different versions of Java (6, 8, and 10, 11) and measure the performance. Provide a simple report to your mentor.
 
+* __Task 2__ - Deadlocks
+
+Create three threads:
+ - 1st thread is infinitely writing random number to the collection;
+ - 2nd thread is printing sum of the numbers in the collection;
+ - 3rd is printing square root of sum of squares of all numbers in the collection.
+
+Make these calculations thread-safe using synchronization block. Fix the possible deadlock.
+
 * __Task 5__ - Make an application that contains business logic for making exchange operations between different currencies.
 
 1.	Create models for dealing with currencies, user accounts and exchange rates. One account can have multiple currency values. Use BigDecimal for performing of exchange calculations.
