@@ -1,11 +1,12 @@
-package pl.mentoring.t2synchronizationblock;
+package pl.mentoring.t1_thread_safe_map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.List;
+import java.util.ConcurrentModificationException;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -13,14 +14,12 @@ public class ElementProducer extends Thread {
 
     private static final Logger logger = LoggerFactory.getLogger(ElementProducer.class);
 
-    private final List<Integer> collection;
-
+    private final Map<Integer, Integer> map;
     private final AtomicBoolean keepOnRunning;
-
     private final Random rand;
 
-    public ElementProducer(List<Integer> collection, AtomicBoolean keepOnRunning) {
-        this.collection = collection;
+    public ElementProducer(Map<Integer, Integer> map, AtomicBoolean keepOnRunning) {
+        this.map = map;
         this.keepOnRunning = keepOnRunning;
 
         Random rand1;
@@ -37,17 +36,15 @@ public class ElementProducer extends Thread {
     public void run() {
         while (keepOnRunning.get()) {
             try {
-                synchronized (collection) {
-                    collection.add(rand.nextInt(1000));
+                map.put(rand.nextInt(10000), rand.nextInt(1000));
+                if (map.size() >= 10000) {
+                    logger.info("10000 elements successfully added to the map");
+                    keepOnRunning.set(false);
                 }
-            } catch (Exception e) {
-                logger.error(e.getMessage(), e);
-            }
-
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+            } catch (ConcurrentModificationException e) {
+                logger.info("Exception adding element to the map. Current map size - {}", map.size());
+                keepOnRunning.set(false);
+                throw e;
             }
         }
     }

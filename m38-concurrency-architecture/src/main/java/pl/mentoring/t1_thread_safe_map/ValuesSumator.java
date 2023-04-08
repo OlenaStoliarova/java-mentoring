@@ -1,4 +1,4 @@
-package pl.mentoring.t1threadsafemap;
+package pl.mentoring.t1_thread_safe_map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package pl.mentoring.t2synchronizationblock;
+package pl.mentoring.t2_synchronization_block;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
