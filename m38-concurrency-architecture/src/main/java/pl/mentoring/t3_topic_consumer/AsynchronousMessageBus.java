@@ -12,7 +12,7 @@ public class AsynchronousMessageBus {
 
     private static AsynchronousMessageBus instance;
 
-    public static AsynchronousMessageBus getInstance() {
+    public static synchronized AsynchronousMessageBus getInstance() {
         if (instance == null) {
             instance = new AsynchronousMessageBus();
         }
