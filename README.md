@@ -86,6 +86,17 @@ Implement message bus using Producer-Consumer pattern.
 3.	Implement consumer, which will consume messages on specific topic and log to the console message payload.
 4.	(Optional) Application should create several consumers and producers that run in parallel.
 
+* __Task 4__ - Create simple object pool with support for multithreaded environment. 
+
+No any extra inheritance, polymorphism or generics needed here, just implementation of simple class:
+
+Pool that block when it has not any items or if full.
+ - Constructor - Creates filled pool of passed size
+ - public Object get() - Gets object from pool or blocks if pool is empty
+ - public void put(Object object) - Puts object to pool or blocks if pool is full
+
+Use any blocking approach you like.
+
 * __Task 5__ - Make an application that contains business logic for making exchange operations between different currencies.
 
 1.	Create models for dealing with currencies, user accounts and exchange rates. One account can have multiple currency values. Use BigDecimal for performing of exchange calculations.
