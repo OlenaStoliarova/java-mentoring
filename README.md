@@ -109,3 +109,24 @@ Use any blocking approach you like.
 8.	Make custom exceptions to let user know the reason of error. Do not handle runtime exceptions.
 9.	Validate inputs such an account existence, sufficiency of currency amount, etc.
 10.	Log information about what is happening on different application levels and about conversion results. Use Logger for that.
+
+### Microservices (m32-microservices)
+
+* __Task__ Start services using Docker containers and demonstrate Discovery Service Registry, Requests via API Gateway, Zipkin Metrics and REST API requests.
+
+To start go to m32-microservices folder and run
+
+`docker-compose up --build --scale feign-client=2`
+
+After everything is started you can check Eureka [Service Registry](http://localhost:8761/)
+
+API Gateway is on localhost:8050. Call next endpoints several times:
+http://localhost:8050/greeting
+
+http://localhost:8050/get-greeting
+
+http://localhost:8050/sleuthGreeting
+
+Check what got to [Zipkin](http://localhost:9411/)
+
+To shutdown run `docker-compose down`
