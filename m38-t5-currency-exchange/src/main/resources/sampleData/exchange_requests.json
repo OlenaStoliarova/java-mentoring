@@ -1,0 +1,142 @@
+[
+  {
+    "type": "sell",
+    "id": 1,
+    "client": {"id": 1},
+    "fromAccount": {"accountNumber": "USD329999456"},
+    "toAccount": {"accountNumber": "PL309999123"},
+    "amountToSell": {
+      "amount": 1000,
+      "currency": {
+        "code": "USD",
+        "isNational": false
+      }
+    }
+  },
+  {
+    "type": "buy",
+    "id": 2,
+    "client": {"id": 1},
+    "fromAccount": {"accountNumber": "PL309999123"},
+    "toAccount": {"accountNumber": "EUR319999789"},
+    "amountToBuy": {
+      "amount": 1000,
+      "currency": {
+        "code": "EUR",
+        "isNational": false
+      }
+    }
+  },
+  {
+    "type": "sell",
+    "id": 3,
+    "client": {"id": 2},
+    "fromAccount": {"accountNumber": "EUR318888456"},
+    "toAccount": {"accountNumber": "PL308888123"},
+    "amountToSell": {
+      "amount": 200,
+      "currency": {
+        "code": "EUR",
+        "isNational": false
+      }
+    }
+  },
+  {
+    "type": "buy",
+    "id": 4,
+    "client": {"id": 2},
+    "fromAccount": {"accountNumber": "PL308888123"},
+    "toAccount": {"accountNumber": "JPY458888987"},
+    "amountToBuy": {
+      "amount": 10000,
+      "currency": {
+        "code": "JPY",
+        "isNational": false
+      }
+    }
+  },
+  {
+    "type": "sell",
+    "id": 5,
+    "client": {"id": 3},
+    "fromAccount": {"accountNumber": "USD329999456"},
+    "toAccount": {"accountNumber": "PL309999123"},
+    "amountToSell": {
+      "amount": 100,
+      "currency": {
+        "code": "USD",
+        "isNational": false
+      }
+    }
+  },
+  {
+    "type": "buy",
+    "id": 6,
+    "client": {"id": 1},
+    "fromAccount": {"accountNumber": "PL309999123"},
+    "toAccount": {"accountNumber": "EUR319999789"},
+    "amountToBuy": {
+      "amount": 300,
+      "currency": {
+        "code": "EUR",
+        "isNational": false
+      }
+    }
+  },
+  {
+    "type": "buy",
+    "id": 7,
+    "client": {"id": 3},
+    "fromAccount": {"accountNumber": "PL304444123"},
+    "toAccount": {"accountNumber": "USD324444567"},
+    "amountToBuy": {
+      "amount": 300,
+      "currency": {
+        "code": "USD",
+        "isNational": false
+      }
+    }
+  },
+  {
+    "type": "buy",
+    "id": 8,
+    "client": {"id": 3},
+    "fromAccount": {"accountNumber": "PL304444123"},
+    "toAccount": {"accountNumber": "USD324444567"},
+    "amountToBuy": {
+      "amount": 200,
+      "currency": {
+        "code": "USD",
+        "isNational": false
+      }
+    }
+  },
+  {
+    "type": "buy",
+    "id": 9,
+    "client": {"id": 3},
+    "fromAccount": {"accountNumber": "PL304444123"},
+    "toAccount": {"accountNumber": "USD324444567"},
+    "amountToBuy": {
+      "amount": 500,
+      "currency": {
+        "code": "EUR",
+        "isNational": false
+      }
+    }
+  },
+  {
+    "type": "sell",
+    "id": 10,
+    "client": {"id": 3},
+    "fromAccount": {"accountNumber": "USD324444567"},
+    "toAccount": {"accountNumber": "PL304444123"},
+    "amountToSell": {
+      "amount": 50,
+      "currency": {
+        "code": "EUR",
+        "isNational": false
+      }
+    }
+  }
+]

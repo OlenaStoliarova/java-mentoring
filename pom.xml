@@ -23,6 +23,8 @@
         <module>m6-advanced-multithreading/t5-producer-consumer</module>
         <module>m6-advanced-multithreading/t6-recursivetask-recursiveaction</module>
         <module>m6-advanced-multithreading/t7-forkjoin</module>
+        <module>m38-concurrency-architecture</module>
+        <module>m38-t5-currency-exchange</module>
     </modules>
 
     <dependencies>

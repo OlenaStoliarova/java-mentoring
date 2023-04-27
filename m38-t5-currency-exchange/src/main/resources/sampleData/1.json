@@ -1,0 +1,36 @@
+{
+	"id": 1,
+    "name": "Poppy Periwinkle",
+    "accounts": {
+        "PL309999123": {
+            "accountNumber": "PL309999123",
+            "moneyAmount": {
+                "amount": 0,
+                "currency": {
+                    "code": "PLN",
+                    "isNational": true
+                }
+            }
+        },
+        "USD329999456": {
+            "accountNumber": "USD329999456",
+            "moneyAmount": {
+                "amount": 1000,
+                "currency": {
+                    "code": "USD",
+                    "isNational": false
+                }
+            }
+        },
+        "EUR319999789": {
+            "accountNumber": "EUR319999789",
+            "moneyAmount": {
+                "amount": 0,
+                "currency": {
+                    "code": "EUR",
+                    "isNational": false
+                }
+            }
+        }
+    }
+}

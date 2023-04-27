@@ -1,0 +1,26 @@
+{
+	"id": 0,
+    "name": "William Iris",
+    "accounts": {
+        "PL304444123": {
+            "accountNumber": "PL304444123",
+            "moneyAmount": {
+                "amount": 8999,
+                "currency": {
+                    "code": "PLN",
+                    "isNational": true
+                }
+            }
+        },
+        "USD324444567": {
+            "accountNumber": "USD324444567",
+            "moneyAmount": {
+                "amount": 499,
+                "currency": {
+                    "code": "USD",
+                    "isNational": false
+                }
+            }
+        }
+    }
+}
