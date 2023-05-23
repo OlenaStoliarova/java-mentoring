@@ -5,6 +5,8 @@ import org.springframework.data.couchbase.core.mapping.Document;
 import org.springframework.data.couchbase.core.mapping.Field;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Document
 public class User {
@@ -24,6 +26,16 @@ public class User {
 
     @Field
     private Gender gender;
+
+    @Field
+    private List<Sport> sports = new ArrayList<>();
+
+    public User() {
+    }
+
+    public User(String id) {
+        this.id = id;
+    }
 
     public String getId() {
         return id;
@@ -63,5 +75,17 @@ public class User {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public List<Sport> getSports() {
+        return sports;
+    }
+
+    public void setSports(List<Sport> sports) {
+        this.sports = sports;
+    }
+
+    public void addSport(Sport sport) {
+        this.sports.add(sport);
     }
 }
