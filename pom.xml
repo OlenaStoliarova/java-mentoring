@@ -25,6 +25,7 @@
         <module>m6-advanced-multithreading/t7-forkjoin</module>
         <module>m38-concurrency-architecture</module>
         <module>m38-t5-currency-exchange</module>
+        <module>m32-microservices</module>
     </modules>
 
     <dependencies>

@@ -1,0 +1,105 @@
+version: '2.1'
+services:
+  zipkin:
+    image: openzipkin/zipkin:latest
+    ports:
+      - "9411:9411"
+    networks:
+      - spring-cloud-network
+
+  eureka-server:
+    container_name: eureka-server
+    build:
+      context: platform-services/discovery/eureka-server
+      dockerfile: Dockerfile
+    image: eureka-server:latest
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8761" ]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+    networks:
+      - spring-cloud-network
+
+  eureka-client:
+    container_name: eureka-client
+    build:
+      context: platform-services/discovery/eureka-client
+      dockerfile: Dockerfile
+    image: eureka-client:latest
+    environment:
+      - "SPRING_PROFILES_ACTIVE=docker"
+      - "EUREKA_URI=http://eureka-server:8761/eureka"
+      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411/
+    ports:
+      - "8080"
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      zipkin:
+        condition: service_started
+    networks:
+      - spring-cloud-network
+
+  feign-client:
+    build:
+      context: platform-services/discovery/feign-client
+      dockerfile: Dockerfile
+    image: feign-client:latest
+    environment:
+      - "SPRING_PROFILES_ACTIVE=docker"
+      - "EUREKA_URI=http://eureka-server:8761/eureka"
+    ports:
+      - "8080"
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - spring-cloud-network
+
+  sleuth-test:
+    container_name: sleuth-test
+    build:
+      context: business-services/two-sleuth-test
+      dockerfile: Dockerfile
+    image: sleuth-test:latest
+    environment:
+      - "SPRING_PROFILES_ACTIVE=docker"
+      - "EUREKA_URI=http://eureka-server:8761/eureka"
+      - SPRING_ZIPKIN_BASE_URL=http://zipkin:9411/
+    ports:
+      - "8080"
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      zipkin:
+        condition: service_started
+    networks:
+      - spring-cloud-network
+
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: platform-services/apigateway/spring-cloud-api-gateway
+      dockerfile: Dockerfile
+    image: api-gateway:latest
+    environment:
+      - "EUREKA_URI=http://eureka-server:8761/eureka"
+    ports:
+      - "8050:8050"
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+      eureka-client:
+        condition: service_started
+      feign-client:
+        condition: service_started
+      sleuth-test:
+        condition: service_started
+    networks:
+      - spring-cloud-network
+networks:
+  spring-cloud-network:
+    driver: bridge
