@@ -34,4 +34,9 @@ public class UserService {
         user.addSport(sport);
         return userRepository.save(user);
     }
+
+    public List<User> findUsersBySportName(String sportName) {
+        return userRepository.findBySportName(sportName);
+    }
+
 }

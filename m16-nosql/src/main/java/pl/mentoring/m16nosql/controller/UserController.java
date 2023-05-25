@@ -44,4 +44,9 @@ public class UserController {
                              @RequestBody Sport sport) {
         return userService.addSportToUser(userId, sport);
     }
+
+    @GetMapping("/sport/{sportName}")
+    public List<User> findUsersBySportName(@PathVariable String sportName) {
+        return userService.findUsersBySportName(sportName);
+    }
 }
