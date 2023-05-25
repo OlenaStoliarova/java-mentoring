@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.mentoring.m16nosql.entity.Sport;
 import pl.mentoring.m16nosql.entity.User;
@@ -48,5 +49,10 @@ public class UserController {
     @GetMapping("/sport/{sportName}")
     public List<User> findUsersBySportName(@PathVariable String sportName) {
         return userService.findUsersBySportName(sportName);
+    }
+
+    @GetMapping("/search")
+    public List<User> findUsersBySearchQuery(@RequestParam String q) {
+        return userService.findUsersBySearchQuery(q);
     }
 }
