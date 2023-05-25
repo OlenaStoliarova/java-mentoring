@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.mentoring.m16nosql.entity.Sport;
 import pl.mentoring.m16nosql.entity.User;
 import pl.mentoring.m16nosql.repository.UserRepository;
+import pl.mentoring.m16nosql.repository.UserSearchQueryRepository;
 
 import java.util.List;
 
@@ -11,9 +12,11 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserSearchQueryRepository userSearchQueryRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserSearchQueryRepository userSearchQueryRepository) {
         this.userRepository = userRepository;
+        this.userSearchQueryRepository = userSearchQueryRepository;
     }
 
     public void createNewUser(User newUser) {
@@ -39,4 +42,9 @@ public class UserService {
         return userRepository.findBySportName(sportName);
     }
 
+    public List<User> findUsersBySearchQuery(String searchQuery) {
+        List<String> foundUsersIds = userSearchQueryRepository.searchByQuery(searchQuery);
+
+        return userRepository.findAllById(foundUsersIds);
+    }
 }
