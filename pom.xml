@@ -26,6 +26,7 @@
         <module>m38-concurrency-architecture</module>
         <module>m38-t5-currency-exchange</module>
         <module>m32-microservices</module>
+        <module>m16-nosql</module>
     </modules>
 
     <dependencies>
