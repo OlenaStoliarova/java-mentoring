@@ -3,6 +3,7 @@ package pl.mentoring.m16nosql.service;
 import org.springframework.stereotype.Service;
 import pl.mentoring.m16nosql.entity.Sport;
 import pl.mentoring.m16nosql.entity.User;
+import pl.mentoring.m16nosql.exception.EntityNotFoundException;
 import pl.mentoring.m16nosql.repository.UserRepository;
 import pl.mentoring.m16nosql.repository.UserSearchQueryRepository;
 
@@ -25,7 +26,7 @@ public class UserService {
 
     public User findUserById(String id) {
         return userRepository.findById(id)
-            .orElseGet(() -> new User(id));
+            .orElseThrow(() -> new EntityNotFoundException("user with id " + id + " not found"));
     }
 
     public List<User> findUserEmail(String email) {
