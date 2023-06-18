@@ -27,7 +27,10 @@
         <module>m38-t5-currency-exchange</module>
         <module>m32-microservices</module>
         <module>m16-nosql</module>
+        <module>m33-kafka/palmetto-common</module>
         <module>m33-kafka/client-app</module>
+        <module>m33-kafka/palmetto-app</module>
+        <module>m33-kafka/courier-app</module>
     </modules>
 
     <dependencies>
