@@ -17,7 +17,7 @@ public class DeliveryService {
 
     private KafkaTemplate<Long, String> kafkaTemplate;
 
-    @KafkaListener(topics = NOTIFICATIONS_TOPIC)
+    @KafkaListener(topics = NOTIFICATIONS_TOPIC, concurrency = "3")
     public void deliverReadyOrder(ConsumerRecord<Long, String> newNotification) {
 
         String orderStatus = newNotification.value();

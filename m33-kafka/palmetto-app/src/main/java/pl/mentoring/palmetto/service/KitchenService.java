@@ -19,7 +19,7 @@ public class KitchenService {
 
     private KafkaTemplate<Long, String> kafkaTemplate;
 
-    @KafkaListener(topics = ORDER_TOPIC)
+    @KafkaListener(topics = ORDER_TOPIC, concurrency = "3")
     public void processOrder(ConsumerRecord<String, Long> newOrder) {
         Long newOrderId = newOrder.value();
         logger.info("Palmetto kitchen got order {}", newOrderId);
