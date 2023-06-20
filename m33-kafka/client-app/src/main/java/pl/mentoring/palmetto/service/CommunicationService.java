@@ -24,7 +24,7 @@ public class CommunicationService {
         kafkaTemplate.send(KafkaProducerConfig.ORDER_TOPIC, newOrderId);
     }
 
-    @KafkaListener(topics = "notifications")
+    @KafkaListener(topics = "notifications", concurrency = "3")
     public void listenToNotificationsAndUpdateOrderStatus(ConsumerRecord<Long, String> newNotification) {
 
         logger.info("Received Message {} for key {}", newNotification.value(), newNotification.key());
