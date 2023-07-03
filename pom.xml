@@ -31,6 +31,7 @@
         <module>m33-kafka/client-app</module>
         <module>m33-kafka/palmetto-app</module>
         <module>m33-kafka/courier-app</module>
+        <module>m43-security-applications/spring-security-app1</module>
     </modules>
 
     <dependencies>
