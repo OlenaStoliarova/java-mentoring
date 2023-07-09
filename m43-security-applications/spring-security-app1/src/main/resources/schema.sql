@@ -2,7 +2,10 @@ CREATE TABLE users
 (
     username varchar(50) not null primary key,
     password varchar(500) not null,
-    enabled  boolean not null
+    enabled boolean not null,
+    failedLoginAttempts integer,
+    locked boolean not null,
+    lockStart timestamp
 );
 
 CREATE TABLE authorities

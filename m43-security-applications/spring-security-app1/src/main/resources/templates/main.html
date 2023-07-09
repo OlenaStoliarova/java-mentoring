@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="header::head"></head>
+<body>
+<div th:replace="header::top_menu"></div>
+
+<div class="container">
+    <h1 th:text="${'Hello ' + userName + '!'}"/>
+
+    <br/>
+    <a th:if="${hasUserRole}" href="/info">info</a>
+    <br/><br/>
+    <a th:if="${hasAdminRole}" href="/admin">admin</a>
+</div>
+
+</body>
+</html>

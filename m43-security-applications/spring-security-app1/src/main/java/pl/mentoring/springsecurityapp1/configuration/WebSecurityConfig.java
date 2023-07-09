@@ -21,9 +21,18 @@ public class WebSecurityConfig {
         http
             .authorizeRequests()
             .antMatchers("/about").not().fullyAuthenticated()
+            .antMatchers("/admin").hasRole("ADMIN")
+            .antMatchers("/info").hasRole("USER")
+            .antMatchers("/", "/css/**").permitAll()
             .anyRequest().authenticated()
             .and()
-            .httpBasic();
+                .formLogin().loginPage("/login")
+                .permitAll()
+                .defaultSuccessUrl("/main")
+            .and()
+                .logout()
+                .permitAll()
+                .logoutSuccessUrl("/");
 
         return http.build();
     }
