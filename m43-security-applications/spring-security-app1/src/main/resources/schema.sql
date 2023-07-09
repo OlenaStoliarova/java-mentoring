@@ -1,0 +1,18 @@
+CREATE TABLE users
+(
+    username varchar(50) not null primary key,
+    password varchar(500) not null,
+    enabled boolean not null,
+    failedLoginAttempts integer,
+    locked boolean not null,
+    lockStart timestamp
+);
+
+CREATE TABLE authorities
+(
+    username  varchar(50) not null,
+    authority varchar(50) not null,
+    constraint fk_authorities_users foreign key (username) references users (username)
+);
+
+CREATE UNIQUE INDEX ix_auth_username on authorities (username, authority);
